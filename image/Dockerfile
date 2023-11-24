@@ -29,6 +29,10 @@ RUN if [ "$TARGETARCH" = "arm64" ]; then \
       TERRAFORM_BIN_CACHE_DIR="/var/terraform" TERRAFORM_BIN_CHECKSUM_DIR="/var/terraform" terraform-version 0.13.5; \
 fi
 
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
+    && unzip awscliv2.zip \
+    && sudo ./aws/install
+
 COPY entrypoints/ /entrypoints/
 COPY actions.sh /usr/local/actions.sh
 COPY workflow_commands.sh /usr/local/workflow_commands.sh
