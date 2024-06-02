@@ -7,8 +7,6 @@ on:
     paths:
       - image/Dockerfile-base
       - .github/workflows/base-image.yaml
-  schedule:
-    - cron: 0 1 * * 1
 
 jobs:
   push_image:
@@ -20,6 +18,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: assume role
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::415557941318:role/GithubTerraform
+          aws-region: us-east-1
+
+
+
       - name: Registry login
         run: |
           echo $DOCKER_TOKEN | docker login --username danielflook --password-stdin
@@ -27,11 +33,13 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Base image
+      - name: Build Image
         run: |
+          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 415557941318.dkr.ecr.us-east-1.amazonaws.com
+          
           docker buildx build \
-            --tag danielflook/terraform-github-actions-base:$GITHUB_RUN_ID \
-            --tag danielflook/terraform-github-actions-base:latest  \
+            --tag 415557941318.dkr.ecr.us-east-1.amazonaws.com/terraform-github-actions-base:$GITHUB_RUN_ID \
+            --tag 415557941318.dkr.ecr.us-east-1.amazonaws.com/terraform-github-actions-base:latest  \
             --platform linux/amd64,linux/arm64 \
             --attest type=provenance,mode=max,builder-id=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID \
             --file image/Dockerfile-base \
