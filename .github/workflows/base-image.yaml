@@ -1,4 +1,4 @@
-name: Update base image
+name: Build Docker Image
 
 on:
   push:
@@ -9,9 +9,9 @@ on:
       - .github/workflows/base-image.yaml
 
 jobs:
-  push_image:
-    runs-on: runner-large
-    name: Docker Images
+  build_image:
+    runs-on: runner-medium
+    name: Build Docker Image
     env:
       DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
     steps:
