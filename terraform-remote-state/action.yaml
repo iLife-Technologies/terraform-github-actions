@@ -19,7 +19,7 @@ inputs:
 
 runs:
   using: docker
-  image: 415557941318.dkr.ecr.us-east-1.amazonaws.com/terraform-github-actions:e8e8141a9edb9d5988502a68ba67982ef55e3413
+  image: docker://415557941318.dkr.ecr.us-east-1.amazonaws.com/terraform-github-actions:e8e8141a9edb9d5988502a68ba67982ef55e3413
   entrypoint: /entrypoints/remote-state.sh
 
 branding:
