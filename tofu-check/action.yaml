@@ -38,7 +38,7 @@ runs:
   env:
     OPENTOFU: true
   using: docker
-  image: docker://415557941318.dkr.ecr.us-east-1.amazonaws.com/terraform-github-actions:e8e8141a9edb9d5988502a68ba67982ef55e3413
+  image: ../image/Dockerfile
   entrypoint: /entrypoints/check.sh
 
 branding:
