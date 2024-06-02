@@ -24,12 +24,6 @@ jobs:
           role-to-assume: arn:aws:iam::415557941318:role/GithubTerraform
           aws-region: us-east-1
 
-
-
-      - name: Registry login
-        run: |
-          echo $DOCKER_TOKEN | docker login --username danielflook --password-stdin
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
