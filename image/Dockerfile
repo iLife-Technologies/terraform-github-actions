@@ -1,4 +1,4 @@
-FROM danielflook/terraform-github-actions-base:15686788300
+FROM danielflook/terraform-github-actions-base:14767852044
 
 ARG TARGETARCH
 
